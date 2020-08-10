@@ -1,20 +1,32 @@
-<h1>{{question.subject}}</h1>
-<p>{{question.create_date}}</p>
-<div>
-  {{question.content}}
-</div>
+{% load static %}
 
-<h5>{{question.answer_set.count}}개의 답변이 있습니다.</h5>
-<div>
-  <ul>
-    {% for answer in question.answer_set.all %}
-    <li>{{answer.content}} - <i>{{answer.create_date}}</i></li>
-    {% endfor %}
-  </ul>
-</div>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question Detail</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <h1>{{question.subject}}</h1>
+    <p>{{question.create_date}}</p>
+    <div>
+      {{question.content}}
+    </div>
 
-<form action="{% url 'pybo:answer_create' question.id %}" method="POST">
-  {% csrf_token %}
-  <textarea name="content" id="content" rows="15"></textarea>
-  <input type="submit" value="답변등록" />
-</form>
+    <h5>{{question.answer_set.count}}개의 답변이 있습니다.</h5>
+    <div>
+      <ul>
+        {% for answer in question.answer_set.all %}
+        <li>{{answer.content}} - <i>{{answer.create_date}}</i></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <form action="{% url 'pybo:answer_create' question.id %}" method="POST">
+      {% csrf_token %}
+      <textarea name="content" id="content" rows="15"></textarea>
+      <input type="submit" value="답변등록" />
+    </form>
+  </body>
+</html>
