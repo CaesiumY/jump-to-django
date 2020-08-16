@@ -45,6 +45,7 @@
 
     <div class="form-group">
       <textarea
+        {% if not user.is_authenticated %}disabled{% endif %}
         name="content"
         id="content"
         class="form-control"
