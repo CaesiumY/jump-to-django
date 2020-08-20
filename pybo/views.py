@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Question, Answer
-from .forms import QuestionForm, AnswerForm
+from .forms import QuestionForm, AnswerForm, CommentForm
 
 # Create your views here.
 def index(request):
@@ -150,3 +150,25 @@ def answer_delete(request, answer_id):
         answer.delete()
 
     return redirect('pybo:detail', question_id=answer.question.id)
+
+
+@login_required(login_url='comment:login')
+def comment_create_question(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(comment=False)
+            comment.author = request.user
+            comment.create_date = timezone.now()
+            comment.question = question
+            comment.save()
+            return redirect('pybo:detail', question_id=question_id)
+    else:
+        form = CommentForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'pybo/comment_form.html', context)
