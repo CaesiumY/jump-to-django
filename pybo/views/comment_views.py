@@ -46,7 +46,7 @@ def comment_modify_question(request, comment_id):
             comment.modify_date = timezone.now()
             comment.save()
             return redirect('{}#comment_{}'.format(
-                resolve_url('pybo:detail', question_id=question_id), comment.id
+                resolve_url('pybo:detail', question_id=comment.question_id), comment.id
             ))
     else:
         form = CommentForm(instance=comment)
