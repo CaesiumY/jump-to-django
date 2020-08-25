@@ -126,12 +126,26 @@
 
 <script>
   const page_links = document.querySelectorAll(".page-link");
+  const searchInput = document.querySelector(".kw");
+  const btnSearch = document.getElementById("btn_search");
+  const searchForm = document.getElementById("searchForm");
+  const kw = document.getElementById("kw");
+  const page = document.getElementById("page");
 
   const onClick = (e) => {
-    
+    page.value = e.target.dataset.page;
+    searchForm.submit();
+  }
+
+  const onSearch = (e) => {    
+    kw.value = searchInput.value;
+    page.value = 1;
+    searchForm.submit();
   }
 
   page_links.forEach(link => link.addEventListener('click', onClick));
+  btnSearch.addEventListener('click', onSearch);
+
 </script>
 
 {% endblock %}
