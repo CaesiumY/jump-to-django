@@ -2,6 +2,16 @@
 {% load pybo_filter %}
 {% block content %}
 <div class="container my-3">
+  <div class="row justify-content-end my-3">
+    <div class="col-4 input-group">
+      <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" id="btn_search" type="button">
+          찾기
+        </button>
+      </div>
+    </div>
+  </div>
   <table class="table">
     <thead>
       <tr class="thead-dark text-center">
@@ -57,8 +67,9 @@
     {% if question_list.has_previous %}
     <li class="page-item">
       <a
-        href="?page={{ question_list.previous_page_number }}"
+        href="#"
         class="page-link"
+        data-page="{{ question_list.previous_page_number }}"
       >
         이전
       </a>
@@ -74,11 +85,11 @@
       {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}      
         {% if page_number == question_list.number %}
         <li class="page-item active" aria-current="page">
-          <a href="?page={{ page_number }}" class="page-link">{{page_number}}</a>
+          <a href="#" class="page-link" data-page="{{ page_number }}">{{page_number}}</a>
         </li>
         {% else %}
         <li class="page-item">
-          <a href="?page={{ page_number }}" class="page-link">{{page_number}}</a>
+          <a href="#" class="page-link" data-page="{{ page_number }}">{{page_number}}</a>
         </li>
         {% endif %} 
       {% endif %}
@@ -86,7 +97,7 @@
     {% if question_list.has_next %}
 
     <li class="page-item">
-      <a href="?page={{ question_list.next_page_number }}" class="page-link">
+      <a href="#" class="page-link" data-page="{{ question_list.next_page_number }}">
         다음
       </a>
     </li>
@@ -103,5 +114,24 @@
     질문 등록하기
   </a>
 </div>
+
+<form action="{% url 'index' %}" id="searchForm" method="get">
+  <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+  <input type="hidden" id="page" name="page" value="{{ page }}">
+</form>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+  const page_links = document.querySelectorAll(".page-link");
+
+  const onClick = (e) => {
+    
+  }
+
+  page_links.forEach(link => link.addEventListener('click', onClick));
+</script>
 
 {% endblock %}
