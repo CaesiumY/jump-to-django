@@ -2,7 +2,14 @@
 {% load pybo_filter %}
 {% block content %}
 <div class="container my-3">
-  <div class="row justify-content-end my-3">
+  <div class="row justify-content-between my-3">
+    <div class="col-2">
+      <select class="form-control so">
+        <option value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
+        <option value="recommend" {% if so == 'recommend' %}selected{% endif %}>추천순</option>
+        <option value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>        
+      </select>
+    </div>
     <div class="col-4 input-group">
       <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
       <div class="input-group-append">
@@ -118,6 +125,7 @@
 <form action="{% url 'index' %}" id="searchForm" method="get">
   <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
   <input type="hidden" id="page" name="page" value="{{ page }}">
+  <input type="hidden" id="so" name="so" value="{{ so }}">
 </form>
 
 {% endblock %}
@@ -131,6 +139,8 @@
   const searchForm = document.getElementById("searchForm");
   const kw = document.getElementById("kw");
   const page = document.getElementById("page");
+  const select = document.querySelector('.so');
+  const so = document.getElementById('so');
 
   const onClick = (e) => {
     page.value = e.target.dataset.page;
@@ -143,8 +153,15 @@
     searchForm.submit();
   }
 
+  const onSort = (e) => {
+    so.value = e.target.value;
+    page.value = 1;
+    searchForm.submit();
+  }
+
   page_links.forEach(link => link.addEventListener('click', onClick));
   btnSearch.addEventListener('click', onSearch);
+  select.addEventListener('change', onSort);
 
 </script>
 
