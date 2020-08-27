@@ -1,6 +1,31 @@
-# 위키 독스 - 점프 투 장고로 빠르게 복습하기
+# 📗위키 독스 - 점프 투 장고로 빠르게 복습하기
 
-## 변경된 점
+## 🎨기능
+
+- [x] 게시글 CRUD
+- [x] 질문 CRUD
+- [x] 댓글 CRUD
+- [x] 검색 기능
+- [x] 정렬 기능
+- [x] 추천 기능
+- [x] 페이지네이션
+- [x] 회원가입, 로그인, 로그아웃
+- [x] 마크다운으로 글쓰기
+- [ ] 배포
+
+## 📷스크린샷
+
+<details>
+    <summary>리스트 페이지</summary>
+    <img src="./screenshots/list.png">
+</details>
+
+<details>
+    <summary>상세 페이지</summary>
+    <img src="./screenshots/detail.png">
+</details>
+
+## 😎변경된 점
 
 ### No more JQuery!✋
 
