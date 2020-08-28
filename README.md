@@ -1,5 +1,14 @@
 # 📗위키 독스 - 점프 투 장고로 빠르게 복습하기
 
+## 🛵시작하기
+
+1. 가상 환경 실행
+   
+2. `python manage.py runserver --settings=config.settings.{원하는 환경}` 입력
+   1. `local`은 로컬 환경에서, `prod`는 배포 환경에서 넣어주면 된다.
+   
+> 또는 DJANGO_SETTING_MODULE을 이용하면 된다. [링크 참고](https://wikidocs.net/75560#_1)
+
 ## 🎨기능
 
 - [x] 게시글 CRUD
